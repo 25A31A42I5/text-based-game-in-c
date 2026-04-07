@@ -1,0 +1,72 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int choice;
+    int health = 100;
+    int hasSword = 0;
+
+    printf("=== WELCOME TO THE ADVENTURE GAME ===\n");
+
+    while (health > 0) {
+        printf("\nYour Health: %d\n", health);
+        printf("Choose an action:\n");
+        printf("1. Go into the forest\n");
+        printf("2. Enter the cave\n");
+        printf("3. Rest\n");
+        printf("4. Exit game\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        if (choice == 1) {
+            printf("\n🌲 You enter the forest...\n");
+            int event = rand() % 3;
+
+            if (event == 0) {
+                printf("You found a sword! 🗡️\n");
+                hasSword = 1;
+            } 
+            else if (event == 1) {
+                printf("A wild animal attacks you! 🐺\n");
+                if (hasSword) {
+                    printf("You used your sword and defeated it!\n");
+                } else {
+                    printf("You got injured!\n");
+                    health -= 20;
+                }
+            } 
+            else {
+                printf("You found food and regained health! 🍎\n");
+                health += 10;
+            }
+        } 
+        else if (choice == 2) {
+            printf("\n🕳️ You enter the cave...\n");
+            if (hasSword) {
+                printf("A monster appears! 👹 You defeat it with your sword!\n");
+                printf("You win the game! 🎉\n");
+                break;
+            } else {
+                printf("A monster attacks you! 👹\n");
+                health -= 30;
+            }
+        } 
+        else if (choice == 3) {
+            printf("\n😴 You take rest and recover health.\n");
+            health += 15;
+        } 
+        else if (choice == 4) {
+            printf("\nExiting game. Goodbye!\n");
+            break;
+        } 
+        else {
+            printf("\nInvalid choice! Try again.\n");
+        }
+
+        if (health <= 0) {
+            printf("\n💀 You lost all your health. Game Over!\n");
+        }
+    }
+
+    return 0;
+}
